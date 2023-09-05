@@ -1,20 +1,12 @@
-import Button from "../components/UI/Button";
-import { useNavigate } from "react-router-dom";
-const MainPage = (): JSX.Element => {
-  const navigate = useNavigate();
-  const routeToPanel = () => {
-    navigate("/panel");
-  };
-  const routeToCalendar = () => {
-    navigate("/calendar");
-  };
+import Calendar from "../modules/calendar/Calendar";
+import { useState } from "react";
 
+const MainPage = (): JSX.Element => {
+  const [selectedDate, selectDate] = useState(new Date());
   return (
-    <div className='fullscreen center flex-col'>
-      <div className='center h-[150px] flex-col !justify-between'>
-        <Button onClick={routeToPanel}>Админ панель</Button>
-        <Button onClick={routeToCalendar}>Календарь для записи</Button>
-      </div>
+    <div className='w-full h-[100vh] flex-col items-center flex justify-start'>
+      <h1 className='nunito text-[32px] mt-[50px]'>Календарь</h1>
+      <Calendar selectDate={selectDate} selectedDate={selectedDate} />
     </div>
   );
 };

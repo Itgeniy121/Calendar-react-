@@ -75,6 +75,9 @@ body {
 .selectedDay {
   background-color: #00915c;
 }
+.today {
+  background-color: #3fc9c3;
+}
 .addtitionalDay {
   color: #b4b4b4;
 }

@@ -1,44 +1,32 @@
-import { FC,useState } from "react";
+import { FC, useState } from "react";
 import { useCalendar } from "./hooks/useCalendar";
 import left from "../../static/left.png";
 import right from "../../static/right.png";
 import { checkIsToday } from "../../functions/checkDate";
 import { checkDateIsEqual } from "../../functions/checkEqual";
-import Button2 from "../../components/UI/Button2";
-import toast from "react-hot-toast";
 interface CalendarProps {
   locale?: string;
   selectedDate: Date;
   selectDate: (date: Date) => void;
   firstDay?: number;
-  sendTask: (value: string) => void;
 }
 const Calendar: FC<CalendarProps> = ({
   locale = "ru",
   selectedDate,
   selectDate,
   firstDay = 2,
-  sendTask,
 }) => {
   const [currentDay, setCurrentDay] = useState<string>("");
-  const createTask = () => {
-    if (currentDay === "") {
-      toast.error("Сначала выберите дату");
-    } else {
-      sendTask(currentDay);
-      toast.success("Вы успешно записались на прием");
-    }
-  };
 
   const { state, functions } = useCalendar({ firstDay, selectedDate, locale });
 
   return (
-    <div className='w-[450px] h-[300px] mt-[200px]'>
-      <div className='flex flex-row justify-between items-center w-full h-[55px] bg-[#739985] rounded-t-[10px]'>
+    <div className='w-[450px] h-[300px] mt-[100px]'>
+      <div className='flex flex-row justify-between items-center w-full h-[55px] bg-[#739985] rounded-t-[10px] px-[10px]'>
         <img
           src={left}
           alt='arrow'
-          className='w-[40px] h-[40px] cursor-pointer'
+          className='w-[35px] h-[35px] cursor-pointer'
           onClick={() => functions.onClickArrow("left")}
         />
         {state.mode === "days" && (
@@ -67,11 +55,11 @@ const Calendar: FC<CalendarProps> = ({
         <img
           src={right}
           alt='arrow'
-          className='w-[40px] h-[40px] cursor-pointer'
+          className='w-[35px] h-[35px] cursor-pointer'
           onClick={() => functions.onClickArrow("right")}
         />
       </div>
-      <div className='bg-[#CFCFCF]'>
+      <div className='bg-[#CFCFCF] rounded-b-[10px] py-[20px]'>
         {state.mode === "days" && (
           <>
             <div className='calendar__week__names'>
@@ -111,11 +99,9 @@ const Calendar: FC<CalendarProps> = ({
           </>
         )}
       </div>
-      <div className='w-[450px] h-[80px] flex flex-col items-center justify-between mt-[20px]'>
+      <div className='w-[450px] h-[60px] flex flex-col items-center justify-between mt-[20px]'>
+        <p>Выбранная дата:</p>
         <p>{currentDay}</p>
-        <Button2 onClick={createTask}>
-          <p className='nunito text-[#FFFFFF]'>Записаться</p>
-        </Button2>
       </div>
     </div>
   );
